@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : categories.xml
+    Created on : October 23, 2008, 5:40 PM
+    Author     : ranjith
+    Description:
+        Store categories.
+-->
+
+<categories>
+    <category>
+        <name>Default</name>
+    </category>
+</categories>
