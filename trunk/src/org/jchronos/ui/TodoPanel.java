@@ -18,7 +18,11 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.Date;
 import javax.swing.JPanel;
+import org.jchronos.data.Priority;
+import org.jchronos.data.Status;
+import org.jchronos.data.TodoItem;
 import org.jdesktop.swingx.graphics.GraphicsUtilities;
 import org.jdesktop.swingx.graphics.ShadowRenderer;
 
@@ -32,6 +36,8 @@ BufferedImage shadow;
         private static int X_OFFSET = 5;
         private static int Y_OFFSET = 5;
         private static int SHADOW_SIZE = 5;
+
+    private TodoItem todoItem;
     /** Creates new form TodoPanel */
     public TodoPanel() {
         initComponents();
@@ -43,6 +49,47 @@ BufferedImage shadow;
     public void setSaveAction(ActionListener saveActionListener){
         okButton.addActionListener(saveActionListener);
     }
+
+    private void setSelectedStatus(Status status) {
+        //set combo box
+    }
+
+    private void setSelectedPriority(Priority priority) {
+        //set combo box
+    }
+
+    private void setTodoSubject(String subject) {
+        this.subjectTextField.setText(subject);
+    }
+
+    private void setTodoStartDate(Date date) {
+        this.startDatePicker.setDate(date);
+    }
+
+    private void setTodoDueDate(Date date){
+        this.dueDatePicker.setDate(date);
+    }
+
+    private void setTodoNotes(String notes){
+        this.notesTextArea.setText(notes);
+    }
+
+    private void setTodoCategory(String category) {
+        //set combo box
+    }
+
+    public void setTodoItem(TodoItem item) {
+        this.todoItem = item;
+        if(this.todoItem != null) {
+            setTodoSubject(item.getSubject());
+            setTodoCategory(item.getCategory());
+            setSelectedPriority(item.getPriority());
+            setSelectedStatus(item.getStatus());
+            setTodoStartDate(item.getStartBy());
+            setTodoDueDate(item.getDueBy());
+        }
+    }
+
         @Override
         protected void paintComponent(Graphics g) {
                 int x = X_OFFSET;
@@ -262,5 +309,6 @@ BufferedImage shadow;
     private javax.swing.JComboBox statusComboBox;
     private javax.swing.JTextField subjectTextField;
     // End of variables declaration//GEN-END:variables
+
 
 }
