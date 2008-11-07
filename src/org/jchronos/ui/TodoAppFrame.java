@@ -39,9 +39,9 @@ public class TodoAppFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().add(dashBoardUIPanel1, java.awt.BorderLayout.CENTER);
-        setSize(640,768);
+        setSize(590,460);
 
-        pack();
+        //pack();
     }// </editor-fold>//GEN-END:initComponents
 
 

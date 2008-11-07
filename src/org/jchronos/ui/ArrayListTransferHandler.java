@@ -9,7 +9,6 @@ import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
 import javax.swing.JList;
@@ -40,63 +39,64 @@ class ArrayListTransferHandler extends TransferHandler {
 
     @Override
     public boolean importData(JComponent c, Transferable t) {
-       
-        ArrayList alist = null;
+
+        ArrayList dataList = null;
         System.out.println("Target " + c);
         if (!canImport(c, t.getTransferDataFlavors())) {
             return false;
         }
-        try {
-            target = (JList) c;
-            if (hasLocalArrayListFlavor(t.getTransferDataFlavors())) {
-                alist = (ArrayList) t.getTransferData(localArrayListFlavor);
-            } else if (hasSerialArrayListFlavor(t.getTransferDataFlavors())) {
-                alist = (ArrayList) t.getTransferData(serialArrayListFlavor);
-            } else {
+        if (c instanceof JList) {
+            try {
+
+                target = (JList) c;
+                if (hasLocalArrayListFlavor(t.getTransferDataFlavors())) {
+                    dataList = (ArrayList) t.getTransferData(localArrayListFlavor);
+                } else if (hasSerialArrayListFlavor(t.getTransferDataFlavors())) {
+                    dataList = (ArrayList) t.getTransferData(serialArrayListFlavor);
+                } else {
+                    return false;
+                }
+            } catch (UnsupportedFlavorException ufe) {
+                System.out.println("importData: unsupported data flavor");
+                return false;
+            } catch (IOException ioe) {
+                System.out.println("importData: I/O exception");
                 return false;
             }
-        } catch (UnsupportedFlavorException ufe) {
-            System.out.println("importData: unsupported data flavor");
-            return false;
-        } catch (IOException ioe) {
-            System.out.println("importData: I/O exception");
-            return false;
-        }
 
-        //At this point we use the same code to retrieve the data
-        //locally or serially.
+            int indexToDropAt = target.getSelectedIndex();
 
-        //We'll drop at the current selected index.
-        int index = target.getSelectedIndex();
-
-        //Prevent the user from dropping data back on itself.
-        //For example, if the user is moving items #4,#5,#6 and #7 and
-        //attempts to insert the items after item #5, this would
-        //be problematic when removing the original items.
-        //This is interpreted as dropping the same data on itself
-        //and has no effect.
-        if (source.equals(target)) {
-            if (indices != null && index >= indices[0] - 1 && index <= indices[indices.length - 1]) {
-                indices = null;
-                return true;
+            //Prevent the user from dropping data back on itself.
+            //For example, if the user is moving items #4,#5,#6 and #7 and
+            //attempts to insert the items after item #5, this would
+            //be problematic when removing the original items.
+            //This is interpreted as dropping the same data on itself
+            //and has no effect.
+            if (source.equals(target)) {
+                if (indices != null && indexToDropAt >= indices[0] - 1 &&
+                        indexToDropAt <= indices[indices.length - 1]) {
+                    indices = null;
+                    return true;
+                }
             }
-        }
 
-        DefaultListModel listModel = (DefaultListModel) target.getModel();
-        int max = listModel.getSize();
-        if (index < 0) {
-            index = max;
-        } else {
-            index++;
-            if (index > max) {
-                index = max;
+            DefaultListModel listModel = (DefaultListModel) target.getModel();
+            int max = listModel.getSize();
+            if (indexToDropAt < 0) {
+                indexToDropAt = max;
+            } else {
+                indexToDropAt++;
+                if (indexToDropAt > max) {
+                    indexToDropAt = max;
+                }
             }
-        }
-        addIndex = index;
-        addCount = alist.size();
-        for (int i = 0; i < alist.size(); i++) {
-            listModel.add(index++, alist.get(i));
-        }
+            addIndex = indexToDropAt;
+            addCount = dataList.size();
+            for (int i = 0; i < dataList.size(); i++) {
+                listModel.add(indexToDropAt++, dataList.get(i));
+                //update the item.(change the priority)
+            }
+        } 
         return true;
     }
 
@@ -104,25 +104,20 @@ class ArrayListTransferHandler extends TransferHandler {
     protected void exportDone(JComponent c, Transferable data, int action) {
         if ((action == MOVE) && (indices != null)) {
             DefaultListModel model = (DefaultListModel) source.getModel();
-            for(int a : indices) {
-                System.out.println("indices XX::" + a);
-            }
             //If we are moving items around in the same list, we
             //need to adjust the indices accordingly since those
             //after the insertion point have moved
-            
             if (addCount > 0 && (source == target)) {
-                for (int i = 0; i < indices.length; i++) {
-                    if (indices[i] > addIndex) {
-                        indices[i] += addCount;
+                for(int index : indices) {
+                    if(index > addIndex) {
+                        index += addCount;
                     }
                 }
             }
-             
+
             for (int i = indices.length - 1; i >= 0; i--) {
-                System.out.println("Index " + indices[i]);
-                System.out.println("Model - " + model);
                 model.remove(indices[i]);
+                //find an exact match for item, remove from datastore
             }
         }
         indices = null;
@@ -135,10 +130,12 @@ class ArrayListTransferHandler extends TransferHandler {
             return false;
         }
 
-        for (int i = 0; i < flavors.length; i++) {
+        for (int i = 0; i <
+                flavors.length; i++) {
             if (flavors[i].equals(localArrayListFlavor)) {
                 return true;
             }
+
         }
         return false;
     }
@@ -148,10 +145,12 @@ class ArrayListTransferHandler extends TransferHandler {
             return false;
         }
 
-        for (int i = 0; i < flavors.length; i++) {
+        for (int i = 0; i <
+                flavors.length; i++) {
             if (flavors[i].equals(serialArrayListFlavor)) {
                 return true;
             }
+
         }
         return false;
     }
@@ -161,32 +160,41 @@ class ArrayListTransferHandler extends TransferHandler {
         if (hasLocalArrayListFlavor(flavors)) {
             return true;
         }
+
         if (hasSerialArrayListFlavor(flavors)) {
             return true;
         }
+
         return false;
     }
 
     @Override
-    protected Transferable createTransferable(JComponent c) {
+    protected Transferable createTransferable(
+            JComponent c) {
         if (c instanceof JList) {
             source = (JList) c;
-            indices = source.getSelectedIndices();
+            indices =
+                    source.getSelectedIndices();
             Object[] values = source.getSelectedValues();
             if (values == null || values.length == 0) {
                 return null;
             }
+
             ArrayList alist = new ArrayList(values.length);
-            for (int i = 0; i < values.length; i++) {
+            for (int i = 0; i <
+                    values.length; i++) {
                 Object o = values[i];
                 String str = o.toString();
                 if (str == null) {
                     str = "";
                 }
+
                 alist.add(str);
             }
+
             return new ArrayListTransferable(alist);
         }
+
         return null;
     }
 

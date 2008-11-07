@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -19,6 +19,10 @@ import java.awt.dnd.DragSourceDropEvent;
 import java.awt.dnd.DragSourceEvent;
 import java.awt.dnd.DragSourceListener;
 import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JViewport;
+import org.jchronos.data.Priority;
 import org.jdesktop.swingx.decorator.ColorHighlighter;
 import org.jdesktop.swingx.decorator.HighlighterFactory;
 
@@ -70,6 +74,10 @@ public class QuadrantPanel extends javax.swing.JPanel implements DragSourceListe
         q4List.setRolloverEnabled(true);
         q4List.setTransferHandler(arrayListTransferHandler);
 
+        setHeader(q1ScrollPane,Priority.URGENT_AND_IMPORTANT);
+        setHeader(q2ScrollPane,Priority.IMPORTANT_BUT_NOT_URGENT);
+        setHeader(q3ScrollPane,Priority.URGENT_BUT_NOT_IMPORTANT);
+        setHeader(q4ScrollPane,Priority.NEITHER_URGENT_NOR_IMPORTANT);
 
     //DragGestureRecognizer dgr = ds.createDefaultDragGestureRecognizer(q1List,
     //        DnDConstants.ACTION_COPY, this);
@@ -85,58 +93,54 @@ public class QuadrantPanel extends javax.swing.JPanel implements DragSourceListe
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
+        q1ScrollPane = new javax.swing.JScrollPane();
         q1List = new org.jdesktop.swingx.JXList();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        q2ScrollPane = new javax.swing.JScrollPane();
         q2List = new org.jdesktop.swingx.JXList();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        q3ScrollPane = new javax.swing.JScrollPane();
         q3List = new org.jdesktop.swingx.JXList();
-        jScrollPane4 = new javax.swing.JScrollPane();
+        q4ScrollPane = new javax.swing.JScrollPane();
         q4List = new org.jdesktop.swingx.JXList();
 
         setLayout(new java.awt.GridLayout(2, 2));
 
-        q1List.setBorder(new org.jdesktop.swingx.border.DropShadowBorder());
         q1List.setModel(new TodoListModel());
         q1List.setDragEnabled(true);
         q1List.setVisibleRowCount(20);
-        jScrollPane1.setViewportView(q1List);
+        q1ScrollPane.setViewportView(q1List);
 
-        add(jScrollPane1);
+        add(q1ScrollPane);
 
-        q2List.setBorder(new org.jdesktop.swingx.border.DropShadowBorder());
         q2List.setModel(new TodoListModel());
         q2List.setDragEnabled(true);
         q2List.setVisibleRowCount(20);
-        jScrollPane3.setViewportView(q2List);
+        q2ScrollPane.setViewportView(q2List);
 
-        add(jScrollPane3);
+        add(q2ScrollPane);
 
-        q3List.setBorder(new org.jdesktop.swingx.border.DropShadowBorder());
         q3List.setModel(new TodoListModel());
         q3List.setDragEnabled(true);
         q3List.setVisibleRowCount(20);
-        jScrollPane2.setViewportView(q3List);
+        q3ScrollPane.setViewportView(q3List);
 
-        add(jScrollPane2);
+        add(q3ScrollPane);
 
-        q4List.setBorder(new org.jdesktop.swingx.border.DropShadowBorder());
         q4List.setModel(new TodoListModel());
         q4List.setDragEnabled(true);
         q4List.setVisibleRowCount(20);
-        jScrollPane4.setViewportView(q4List);
+        q4ScrollPane.setViewportView(q4List);
 
-        add(jScrollPane4);
+        add(q4ScrollPane);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private org.jdesktop.swingx.JXList q1List;
+    private javax.swing.JScrollPane q1ScrollPane;
     private org.jdesktop.swingx.JXList q2List;
+    private javax.swing.JScrollPane q2ScrollPane;
     private org.jdesktop.swingx.JXList q3List;
+    private javax.swing.JScrollPane q3ScrollPane;
     private org.jdesktop.swingx.JXList q4List;
+    private javax.swing.JScrollPane q4ScrollPane;
     // End of variables declaration//GEN-END:variables
     public void dragEnter(DragSourceDragEvent arg0) {
         System.out.println("Drag enter");
@@ -161,5 +165,11 @@ public class QuadrantPanel extends javax.swing.JPanel implements DragSourceListe
     public void dragGestureRecognized(DragGestureEvent gestureEvent) {
         transferable = new StringSelection(q1List.getSelectedValue().toString());
         System.out.println("Source " + gestureEvent.getComponent());
+    }
+
+    private void setHeader(JScrollPane jScrollPane, Priority priority) {
+        JViewport jViewport = new JViewport();
+        jViewport.setView(new JLabel(priority.toString(),JLabel.CENTER));
+        jScrollPane.setColumnHeader(jViewport);
     }
 }
