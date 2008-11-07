@@ -19,7 +19,7 @@
     <Property name="rows" type="int" value="2"/>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+    <Container class="javax.swing.JScrollPane" name="q1ScrollPane">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -28,9 +28,6 @@
       <SubComponents>
         <Component class="org.jdesktop.swingx.JXList" name="q1List">
           <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                <PropertyBean type="org.jdesktop.swingx.border.DropShadowBorder"/>
-            </Property>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new TodoListModel()" type="code"/>
             </Property>
@@ -40,7 +37,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+    <Container class="javax.swing.JScrollPane" name="q2ScrollPane">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -49,9 +46,6 @@
       <SubComponents>
         <Component class="org.jdesktop.swingx.JXList" name="q2List">
           <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                <PropertyBean type="org.jdesktop.swingx.border.DropShadowBorder"/>
-            </Property>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new TodoListModel()" type="code"/>
             </Property>
@@ -61,7 +55,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+    <Container class="javax.swing.JScrollPane" name="q3ScrollPane">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -70,9 +64,6 @@
       <SubComponents>
         <Component class="org.jdesktop.swingx.JXList" name="q3List">
           <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                <PropertyBean type="org.jdesktop.swingx.border.DropShadowBorder"/>
-            </Property>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new TodoListModel()" type="code"/>
             </Property>
@@ -82,7 +73,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane4">
+    <Container class="javax.swing.JScrollPane" name="q4ScrollPane">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>
@@ -91,9 +82,6 @@
       <SubComponents>
         <Component class="org.jdesktop.swingx.JXList" name="q4List">
           <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                <PropertyBean type="org.jdesktop.swingx.border.DropShadowBorder"/>
-            </Property>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new TodoListModel()" type="code"/>
             </Property>

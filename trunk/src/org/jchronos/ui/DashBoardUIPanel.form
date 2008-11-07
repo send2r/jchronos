@@ -11,7 +11,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,36,0,0,2,-104"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,51,0,0,2,-104"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -39,7 +39,9 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="486" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="trashLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="413" max="32767" attributes="0"/>
                       <Component id="addButton" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Component id="quitButton" linkSize="1" min="-2" max="-2" attributes="0"/>
@@ -54,6 +56,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="quitButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="addButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="trashLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="50" max="32767" attributes="0"/>
                   </Group>
@@ -77,37 +80,21 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="quitButtonActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JLabel" name="trashLabel">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/org/jchronos/ui/user-trash.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Trash"/>
+                <Property name="toolTipText" type="java.lang.String" value="Drag and Drop Items here to remove"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
-        <Component class="org.jtodo.ui.QuadrantPanel" name="quadrantPanel1">
+        <Component class="org.jchronos.ui.QuadrantPanel" name="quadrantPanel1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
               <BorderConstraints direction="Center"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="javax.swing.JLabel" name="xLabel">
-          <Properties>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Urgency"/>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-              <BorderConstraints direction="First"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="javax.swing.JLabel" name="yLabel">
-          <Properties>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Importance"/>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="yLabel.setUI(new VerticalLabelUI(false));"/>
-          </AuxValues>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-              <BorderConstraints direction="Before"/>
             </Constraint>
           </Constraints>
         </Component>

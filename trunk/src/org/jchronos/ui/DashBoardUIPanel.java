@@ -14,6 +14,13 @@ import com.jhlabs.image.BlurFilter;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetDragEvent;
+import java.awt.dnd.DropTargetDropEvent;
+import java.awt.dnd.DropTargetEvent;
+import java.awt.dnd.DropTargetListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JComponent;
@@ -21,7 +28,6 @@ import org.jdesktop.jxlayer.JXLayer;
 import org.jdesktop.jxlayer.plaf.ext.LockableUI;
 import org.jdesktop.jxlayer.plaf.effect.BufferedImageOpEffect;
 import org.jdesktop.jxlayer.plaf.effect.LayerEffect;
-import org.jchronos.ui.ext.VerticalLabelUI;
 
 /**
  *
@@ -35,6 +41,9 @@ public class DashBoardUIPanel extends javax.swing.JPanel {
     /** Creates new form DashBoardUIPanel */
     public DashBoardUIPanel() {
         initComponents();
+        
+        //trashLabel.setDropTarget(new DropTarget(trashLabel, new DeleteDropTargetListener()));
+        trashLabel.setTransferHandler(new ArrayListTransferHandler());
     }
 
     /** This method is called from within the constructor to
@@ -50,10 +59,8 @@ public class DashBoardUIPanel extends javax.swing.JPanel {
         buttonPanel = new javax.swing.JPanel();
         addButton = new javax.swing.JButton();
         quitButton = new javax.swing.JButton();
+        trashLabel = new javax.swing.JLabel();
         quadrantPanel1 = new org.jchronos.ui.QuadrantPanel();
-        xLabel = new javax.swing.JLabel();
-        yLabel = new javax.swing.JLabel();
-        yLabel.setUI(new VerticalLabelUI(false));
 
         setLayout(new java.awt.BorderLayout());
 
@@ -73,12 +80,18 @@ public class DashBoardUIPanel extends javax.swing.JPanel {
             }
         });
 
+        trashLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jchronos/ui/user-trash.png"))); // NOI18N
+        trashLabel.setText("Trash");
+        trashLabel.setToolTipText("Drag and Drop Items here to remove");
+
         javax.swing.GroupLayout buttonPanelLayout = new javax.swing.GroupLayout(buttonPanel);
         buttonPanel.setLayout(buttonPanelLayout);
         buttonPanelLayout.setHorizontalGroup(
             buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buttonPanelLayout.createSequentialGroup()
-                .addContainerGap(486, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(trashLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 413, Short.MAX_VALUE)
                 .addComponent(addButton)
                 .addGap(18, 18, 18)
                 .addComponent(quitButton)
@@ -93,20 +106,13 @@ public class DashBoardUIPanel extends javax.swing.JPanel {
                 .addGap(27, 27, 27)
                 .addGroup(buttonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(quitButton)
-                    .addComponent(addButton))
+                    .addComponent(addButton)
+                    .addComponent(trashLabel))
                 .addContainerGap(50, Short.MAX_VALUE))
         );
 
         mainUIPanel.add(buttonPanel, java.awt.BorderLayout.PAGE_END);
         mainUIPanel.add(quadrantPanel1, java.awt.BorderLayout.CENTER);
-
-        xLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        xLabel.setText("Urgency");
-        mainUIPanel.add(xLabel, java.awt.BorderLayout.PAGE_START);
-
-        yLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        yLabel.setText("Importance");
-        mainUIPanel.add(yLabel, java.awt.BorderLayout.LINE_START);
 
         add(mainUIPanel, java.awt.BorderLayout.CENTER);
         jXLayer = new JXLayer<JComponent>(mainUIPanel,lockableUI);
@@ -127,8 +133,7 @@ public class DashBoardUIPanel extends javax.swing.JPanel {
     private javax.swing.JPanel mainUIPanel;
     private org.jchronos.ui.QuadrantPanel quadrantPanel1;
     private javax.swing.JButton quitButton;
-    private javax.swing.JLabel xLabel;
-    private javax.swing.JLabel yLabel;
+    private javax.swing.JLabel trashLabel;
     // End of variables declaration//GEN-END:variables
     public static class TodoLockableUI extends LockableUI {
 
@@ -172,5 +177,33 @@ public class DashBoardUIPanel extends javax.swing.JPanel {
             super.setLocked(isLocked);
             todoPanel.setVisible(isLocked);
         }
+    }
+
+    class DeleteDropTargetListener implements DropTargetListener{
+
+        public void dragEnter(DropTargetDragEvent evt) {
+        }
+
+        public void dragOver(DropTargetDragEvent arg0) {
+
+        }
+
+        public void dropActionChanged(DropTargetDragEvent arg0) {
+            System.out.println("Drop action changed");
+        }
+
+        public void dragExit(DropTargetEvent arg0) {
+            System.out.println("Drag exit");
+        }
+
+        public void drop(DropTargetDropEvent evt) {
+            Transferable transferable = evt.getTransferable();
+            for(DataFlavor f: transferable.getTransferDataFlavors()){
+                System.out.println("Data flavors " + f.getMimeType());
+
+            }
+            System.out.println("OUch dropped");
+        }
+
     }
 }

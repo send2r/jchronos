@@ -5,6 +5,8 @@
 
 package org.jchronos;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.UIManager;
 import org.jchronos.ui.TodoAppFrame;
 
@@ -21,7 +23,14 @@ public class Main {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TodoAppFrame("jChronos").setVisible(true);
+               TodoAppFrame frame =  new TodoAppFrame("jChronos");
+               Toolkit toolkit = Toolkit.getDefaultToolkit();
+               Dimension screenSize = toolkit.getScreenSize();
+
+                int x = (screenSize.width - frame.getWidth()) / 2;
+                int y = (screenSize.height - frame.getHeight()) / 2;
+                frame.setLocation(x, y);
+               frame.setVisible(true);
             }
         });
     }

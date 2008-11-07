@@ -7,9 +7,20 @@
     Description:
         Store categories.
 -->
-
 <categories>
     <category>
         <name>Default</name>
+    </category>
+    <category>
+        <name>Work</name>
+    </category>
+    <category>
+        <name>Personal</name>
+    </category>
+    <category>
+        <name>Long Term</name>
+    </category>
+    <category>
+        <name>Short Term</name>
     </category>
 </categories>
