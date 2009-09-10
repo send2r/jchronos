@@ -28,7 +28,7 @@ import org.jdesktop.swingx.graphics.ShadowRenderer;
 
 /**
  *
- * @author XR1CTSO
+ * @author ranjith
  */
 public class TodoPanel extends JPanel {
 BufferedImage shadow;
@@ -285,7 +285,7 @@ BufferedImage shadow;
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_okButtonActionPerformed
 
 
