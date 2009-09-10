@@ -31,7 +31,7 @@ import org.jdesktop.jxlayer.plaf.effect.LayerEffect;
 
 /**
  *
- * @author XR1CTSO
+ * @author ranjith
  */
 public class DashBoardUIPanel extends javax.swing.JPanel {
 

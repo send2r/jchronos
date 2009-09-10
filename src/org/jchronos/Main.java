@@ -12,7 +12,7 @@ import org.jchronos.ui.TodoAppFrame;
 
 /**
  *
- * @author XR1CTSO
+ * @author ranjith
  */
 public class Main {
 

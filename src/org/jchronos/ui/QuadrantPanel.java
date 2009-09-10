@@ -28,7 +28,7 @@ import org.jdesktop.swingx.decorator.HighlighterFactory;
 
 /**
  *
- * @author XR1CTSO
+ * @author ranjith
  */
 public class QuadrantPanel extends javax.swing.JPanel implements DragSourceListener, DragGestureListener {
 

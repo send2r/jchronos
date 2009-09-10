@@ -13,7 +13,7 @@ package org.jchronos.ui;
 
 /**
  *
- * @author XR1CTSO
+ * @author ranjith
  */
 public class TodoAppFrame extends javax.swing.JFrame {
 
